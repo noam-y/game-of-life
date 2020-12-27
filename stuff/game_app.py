@@ -9,7 +9,7 @@ class GameOfLife:
         birth: int = 3,
         initial_births: int = 400,
     ):
-        # creating game board
+        # creating game board of 50 * 50
         self.board = [[0 for j in range(50)] for i in range(50)]
         self.initial_births = initial_births
         self.min_life = min_for_life
@@ -31,16 +31,25 @@ class GameOfLife:
             else:
                 break
         
+        # handes case where rounds are over but there are still cells alive.
         if not self.game_over:
             self.game_summary()
 
     def game_summary(self):
+
+
+        # gives summary of the game- in case all cells are dead or rounds are completed.
+
         if self.game_over:
             print(f"game is over, \n you played for {self.round} rounds.")
         else:
             print(f'it seems like life procceeds even after the number of rounds you asked for.')
 
     def first_round(self):
+
+
+        #this function randomly picks places for the initial births.
+
         newborn = []
         for _ in range(self.initial_births):
             newborn.append((random.randint(0, 49), random.randint(0, 49)))
@@ -48,6 +57,10 @@ class GameOfLife:
         self.round = 1
 
     def calc_next_turn(self):
+
+
+        # This function handles every turn in the game, except the first one (where births are made).
+
         if not self.game_over:
             kill_list = []
             birth_list = []
@@ -81,6 +94,9 @@ class GameOfLife:
             print("game is already over.")
 
     def get_alive_neighbours(self, cell_index: tuple):
+
+        # This function gets a cell location in tuple and returns the number of alive neighbours it has.
+
         alive_neighbours_counter = 0 
         relative_neighbour_locations = [(1, 0), (-1, 0), (-1, 0), (1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1)]
         for relative_location in relative_neighbour_locations:
